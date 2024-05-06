@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+"""return a tuple of size two containing a start index and an end index"""
 import csv
 from typing import Dict
 
