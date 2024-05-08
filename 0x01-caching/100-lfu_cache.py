@@ -21,14 +21,16 @@ class LFUCache(BaseCaching):
                 freq = Counter(self.lfu)
                 min_value = float("inf")
                 least_freq = None
+
                 for k, v in freq.items():
-                    if v  < min_value:
+                    if v < min_value:
                         min_value = v
                         least_freq = k
-                discarded_key = self.cache_data[least_freq]
+                discarded_key = least_freq
                 del self.cache_data[least_freq]
                 print("DISCARD:", discarded_key)
-                self.lfu.remove(least_freq)
+                if least_freq in self.lfu:
+                    self.lfu.remove(least_freq)
             else:
                 if key in self.lfu:
                     self.lfu.remove(key)
@@ -42,4 +44,3 @@ class LFUCache(BaseCaching):
             self.lfu.append(key)
             return self.cache_data[key]
         return None
-
